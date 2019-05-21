@@ -1,0 +1,10 @@
+*.db
+release
+.vscode
+.idea
+*.key
+.vscode
+
+openwtester/conf
+openwtester/data
+openwtester/openw_data
