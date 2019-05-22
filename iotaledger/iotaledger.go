@@ -62,6 +62,7 @@ func (wm *WalletManager) LoadAssetsConfig(c config.Configer) error {
 	if err != nil {
 		// handle error
 		log.Error("ComposeAPI error occurred unexpected.")
+		return err
 	}
 
 	wm.API = iotaAPI
