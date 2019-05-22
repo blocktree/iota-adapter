@@ -16,6 +16,8 @@
 package iotaledger
 
 import (
+	"fmt"
+
 	"github.com/blocktree/openwallet/log"
 	"github.com/blocktree/openwallet/openw"
 	"github.com/blocktree/openwallet/openwallet"
@@ -58,7 +60,14 @@ func NewWalletManager() *WalletManager {
 	return &wm
 }
 
+// CreateAssetsAccount does not support
 func (wm *WalletManager) CreateAssetsAccount(appID, walletID, password string, account *openwallet.AssetsAccount, otherOwnerKeys []string) (*openwallet.AssetsAccount, *openwallet.Address, error) {
 	log.Error("not impl.")
-	return nil, nil, nil
+	return nil, nil, fmt.Errorf("Not impl")
+}
+
+// GetAssetsAccountList does not support
+func (wm *WalletManager) GetAssetsAccountList(appID, walletID string, offset, limit int) ([]*openwallet.AssetsAccount, error) {
+	log.Error("not impl.")
+	return nil, fmt.Errorf("Not impl")
 }

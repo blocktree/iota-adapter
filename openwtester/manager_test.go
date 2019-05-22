@@ -32,12 +32,12 @@ func TestWalletManager_CreateWallet(t *testing.T) {
 	w := &openwallet.Wallet{Alias: "HELLO IOTA", IsTrust: true, Password: "12345678"}
 	nw, key, err := tm.CreateWallet(testApp, w)
 	if err != nil {
-		log.Error(err)
+		t.Error(err)
 		return
 	}
 
-	log.Info("wallet:", nw)
-	log.Info("key:", key)
+	t.Log("wallet:", nw)
+	t.Log("key:", key)
 
 }
 
@@ -47,10 +47,10 @@ func TestWalletManager_GetWalletInfo(t *testing.T) {
 
 	wallet, err := tm.GetWalletInfo(testApp, "WHQF3H2Hqa2Pksp8vWmBDZpS7piEGVivRp")
 	if err != nil {
-		log.Error("unexpected error:", err)
+		t.Error("unexpected error:", err)
 		return
 	}
-	log.Info("wallet:", wallet)
+	t.Log("wallet:", wallet)
 }
 
 func TestWalletManager_GetWalletList(t *testing.T) {
@@ -59,13 +59,13 @@ func TestWalletManager_GetWalletList(t *testing.T) {
 
 	list, err := tm.GetWalletList(testApp, 0, 10000000)
 	if err != nil {
-		log.Error("unexpected error:", err)
+		t.Error("unexpected error:", err)
 		return
 	}
 	for i, w := range list {
-		log.Info("wallet[", i, "] :", w)
+		t.Log("wallet[", i, "] :", w)
 	}
-	log.Info("wallet count:", len(list))
+	t.Log("wallet count:", len(list))
 
 	tm.CloseDB(testApp)
 }
@@ -76,14 +76,11 @@ func TestWalletManager_CreateAssetsAccount(t *testing.T) {
 
 	walletID := "VzhK2fEviqi3UaG7h852Wdpw4kUsZYQC1K"
 	account := &openwallet.AssetsAccount{Alias: "mainnetIOTA", WalletID: walletID, Required: 1, Symbol: "IOTA", IsTrust: true}
-	account, address, err := tm.CreateAssetsAccount(testApp, walletID, "12345678", account, nil)
-	if err != nil {
-		log.Error(err)
+	_, _, err := tm.CreateAssetsAccount(testApp, walletID, "12345678", account, nil)
+	if err == nil {
+		t.Error(err)
 		return
 	}
-
-	log.Info("account:", account)
-	log.Info("address:", address)
 
 	tm.CloseDB(testApp)
 }
@@ -93,15 +90,11 @@ func TestWalletManager_GetAssetsAccountList(t *testing.T) {
 	tm := testInitWalletManager()
 
 	walletID := "WHQF3H2Hqa2Pksp8vWmBDZpS7piEGVivRp"
-	list, err := tm.GetAssetsAccountList(testApp, walletID, 0, 10000000)
-	if err != nil {
-		log.Error("unexpected error:", err)
+	_, err := tm.GetAssetsAccountList(testApp, walletID, 0, 10000000)
+	if err == nil {
+		t.Error(err)
 		return
 	}
-	for i, w := range list {
-		log.Info("account[", i, "] :", w)
-	}
-	log.Info("account count:", len(list))
 
 	tm.CloseDB(testApp)
 
@@ -115,11 +108,11 @@ func TestWalletManager_CreateAddress(t *testing.T) {
 	accountID := "HgRBsaiKgoVDagwezos496vqKQCh41pY44JbhW65YA8t"
 	address, err := tm.CreateAddress(testApp, walletID, accountID, 5)
 	if err != nil {
-		log.Error(err)
+		t.Error(err)
 		return
 	}
 
-	log.Info("address:", address)
+	t.Log("address:", address)
 
 	tm.CloseDB(testApp)
 }
@@ -132,13 +125,13 @@ func TestWalletManager_GetAddressList(t *testing.T) {
 	accountID := "HgRBsaiKgoVDagwezos496vqKQCh41pY44JbhW65YA8t"
 	list, err := tm.GetAddressList(testApp, walletID, accountID, 0, -1, false)
 	if err != nil {
-		log.Error("unexpected error:", err)
+		t.Error("unexpected error:", err)
 		return
 	}
 	for i, w := range list {
-		log.Info("address[", i, "] :", w.Address)
+		t.Log("address[", i, "] :", w.Address)
 	}
-	log.Info("address count:", len(list))
+	t.Log("address count:", len(list))
 
 	tm.CloseDB(testApp)
 }
