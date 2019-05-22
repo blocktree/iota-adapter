@@ -60,13 +60,13 @@ func NewWalletManager() *WalletManager {
 	return &wm
 }
 
-// CreateAssetsAccount does not support
+// CreateAssetsAccount does not supported.
 func (wm *WalletManager) CreateAssetsAccount(appID, walletID, password string, account *openwallet.AssetsAccount, otherOwnerKeys []string) (*openwallet.AssetsAccount, *openwallet.Address, error) {
 	log.Error("not impl.")
 	return nil, nil, fmt.Errorf("Not impl")
 }
 
-// GetAssetsAccountList does not support
+// GetAssetsAccountList does not supported.
 func (wm *WalletManager) GetAssetsAccountList(appID, walletID string, offset, limit int) ([]*openwallet.AssetsAccount, error) {
 	log.Error("not impl.")
 	return nil, fmt.Errorf("Not impl")
